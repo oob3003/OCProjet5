@@ -3,7 +3,7 @@ let baseUrl ="http://localhost:3000/api/teddies/";
 let teddyChoisi = window.location.search;
 let urlParams = new URLSearchParams(teddyChoisi)
 teddyChoisi = urlParams.get('id');
-//teddyChoisi = teddyChoisi.replace ('?id=','/'); plus utile
+//teddyChoisi = teddyChoisi.replace ('?id=','/'); plus nécessaire.
 fetch(baseUrl+teddyChoisi)
     .then(function(response) {
         response.json()
@@ -36,7 +36,24 @@ function displayTeddy(teddy){
 
 //écouter le bouton id="ajouterAuPanier"
 
-const addToCart = document.querySelector('ajouterAuPanier');    // On récupère l'élément sur lequel on veut détecter le clic
-addToCart.addEventListener('click', function() {          // On écoute l'événement click
+const addToCart = document.getElementById('ajouterAuPanier');    // On récupère l'élément sur lequel on veut détecter le clic
+addToCart.addEventListener('click', function() { 
+    addTeddyToCart()         // On écoute l'événement click
     addToCart.innerHTML = "C'est dans le panier !";               // On change le contenu de notre élément pour afficher "C'est cliqué !"
 });
+// ajouter l'id du Teddy choisi au tableau du panier dans le localStorage.
+function addTeddyToCart() {
+    let teddyCartString = localStorage.getItem('teddyCart')
+    let teddyCart 
+    if (!teddyCartString) {
+        teddyCart = []
+    } else {
+        teddyCart = JSON.parse(teddyCartString)
+    }
+
+    teddyCart.push(teddyChoisi)
+
+    localStorage.setItem('teddyCart', JSON.stringify(teddyCart))
+
+    console.log(localStorage.getItem('teddyCart'))
+}
