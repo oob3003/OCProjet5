@@ -29,9 +29,9 @@ function displayTeddy(teddy){
     }
     htmlToCreate += '</div>'
 
-
+//on rempli la div idProduit avec le htmlToCreate
     let displayTeddyDiv = document.getElementById('idProduit');
-    displayTeddyDiv.innerHTML = htmlToCreate;
+    displayTeddyDiv.innerHTML = htmlToCreate; 
 }
 
 //écouter le bouton id="ajouterAuPanier"
@@ -43,17 +43,17 @@ addToCart.addEventListener('click', function() {
 });
 // ajouter l'id du Teddy choisi au tableau du panier dans le localStorage.
 function addTeddyToCart() {
-    let teddyCartString = localStorage.getItem('teddyCart')
-    let teddyCart 
-    if (!teddyCartString) {
-        teddyCart = []
-    } else {
-        teddyCart = JSON.parse(teddyCartString)
-    }
-
+    
+    let teddyCart = getCart()
+   
     teddyCart.push(teddyChoisi)
 
     localStorage.setItem('teddyCart', JSON.stringify(teddyCart))
-
-    console.log(localStorage.getItem('teddyCart'))
+    localStorage.getItem('teddyCart')
+    window.location.assign('page3.html')
 }
+/*localStorage.getItem('teddyCart')
+console.log(localStorage.getItem('teddyCart'))
+console.log(JSON.parse(localStorage.getItem('teddyCart')))*/
+
+  

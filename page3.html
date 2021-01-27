@@ -20,14 +20,12 @@
     </main>
     <section class="container">
         
-        <div id="add-to-cart__container">
-
-        </div>
+        <div id="teddyCart"></div>
         
 
 
         <!--formulaire accessible-->
-        <form class="form">
+        <form id="form">
             <div class="form__field">
                 <label for="firstName">Prénom</label>
 				<input name="firstName" id="firstName" data-displayname="Prenom" class="form-control" required 
@@ -44,7 +42,7 @@
             </div>
             <div class="form__field">
                 <label for="city">Ville</label>
-                <input name="city" id="city" data-displayname="Ville" class="form-control" required  aria-required="true" type="email">
+                <input name="city" id="city" data-displayname="Ville" class="form-control" required  aria-required="true" type="text">
             </div>
             <div class="form__field">
                 <label for="ZIPCode">Code postal</label>
@@ -58,7 +56,12 @@
                 <label for="msg">Message</label>
                 <textarea name="msg" id="msg" cols="30" rows="10"></textarea>
             </div>
-            <button class="btn btn--submit">Envoyer</button>
+            <input type="submit" value="Envoyer">
         </form>
 
     </section>
+    
+	<script type="text/javascript" src="outils.js"></script>
+    <script type="text/javascript" src="index3.js"></script>
+
+</body>

@@ -1,3 +1,4 @@
+/*
 let url ="http://localhost:3000/api/teddies";
 
 fetch(url)
@@ -8,6 +9,8 @@ fetch(url)
     })
   })
 .catch(error => alert("Erreur : " + error));
+*/
+getTeddies(parseTeddies)
 
 function parseTeddies(teddies) {
   let teddyDisplayerElement = document.getElementById('teddyDisplayer')
