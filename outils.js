@@ -21,7 +21,7 @@ function getTeddies(callback) {
     })
     .catch(error => alert("Erreur : " + error));
 }
-
+// parcourir la liste des teddies pour trouver le teddy dont l'_id a été choisi
 function getTeddyById(listeTeddies, id){
     for(let index=0; index < listeTeddies.length; index++){
         if(id === listeTeddies[index]._id){

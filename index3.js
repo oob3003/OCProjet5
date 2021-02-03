@@ -1,16 +1,7 @@
-let baseUrl ="http://localhost:3000/api/teddies/";
+let total = 0;
 
-let teddyCart = getCart()
-/*  fonction d'affichage du panier
-function displayTeddy(teddy){
-    let htmlToCreate = '';
-    htmlToCreate += '<div>'+
-     '<img class="img-fluid" src="'+teddy.imageUrl + '">'+
-     '<h2>'+teddy.name + '</h2>'
-     teddy.price + '€'+
-     '</div>'
-}
-*/
+let teddyCart = getCart();
+
 getTeddies(displayCart) 
 function displayCart(teddies){
     let htmlToCreate = '';
@@ -24,65 +15,59 @@ function displayCart(teddies){
             htmlToCreate += '<div>Non disponible</div>'    
         } else {
             htmlToCreate += '<div>'+ teddy.name + '<img class="img-fluid" src="'+teddy.imageUrl + '">' + teddy.price + '€' + '</div>'
-
+            total += teddy.price
         }
+
     }
     //on rempli la div teddyCart avec le htmlToCreate
     let displayTeddyCart = document.getElementById('teddyCart');
     displayTeddyCart.innerHTML = htmlToCreate; 
+    //on rempli la div totalCart avec le total
+    let displayTotalCart = document.getElementById('totalCart');
+    displayTotalCart.innerHTML = total; 
 }
 
-/*
-// objet Panier
-function Panier()
-{
-    this.liste = [];
-    this.ajouterArticle = function (name, color, price)
-    {
-        let index = this.getTeddies(name);
-        if (index == -1) this.liste.push(new lignePanier(name, color, price));
-        else this.liste[index]+1;ajouterQte(qte);
-    }
-    this.getCartPrice = function ()
-    {
-        let total = 0;
-        for (let i = 0 ; i < this.liste.length ; i++)
-        total += this.liste[i].getPriceLine();
-        return total;
-    }
-    this.getTeddies = function(name)
-    {
-        for (let i = 0 ; i < this.liste.length ; i++)
-            if (name == this.liste[i].getName()) return i;
-        return -1;
-    }
-    this.supprimeTeddy = function(name)
-    {
-        let index = this.getTeddies(name);
-        if (index > -1) this.liste.splice(index, 1);
-    }
+// je crée la fonction "send" pour envoyer les datas user au serveur
+function send(product_id) {
+    // je crée l'objet AJAX qui sera notre requête "envoyer/recevoir" au serveur
+    let contact = new XMLHttpRequest ()   // XMLHttpRequest est un objet AJAX
+        contact.onreadystatechange = function () {  // ceci est une fonction AJAX
+            if (this.readyState == XMLHttpRequest.DONE && this.status == 200){
+                //console.log(this.responseText) // pour tester dans la console
+                var response = JSON.parse(this.responseText);  // "parse" transforme le JSON en JS
+                document.getElementById('result').innerHTML = response.postData.text; 
+                 //console.log(response); // pour tester dans la console
+            }
+        };
+    contact.open("POST", "http://localhost:3000/api/teddies/order");
+    contact.setRequestHeader("Content-Type","application/json");
+    contact.send(JSON.stringify({value:product_id})); // "stringify" transforme le JS en JSON
+};                      // OCP5 ({value:product_id}) 
 
-}
-*/
-// autre piste pour afficher le panier
- /*
-function addToCartDisplayer(teddy){
-    let htmlToCreate = '';
-    htmlToCreate += '<div>'
-    htmlToCreate += '<img class="img-fluid" src="'+teddy.imageUrl + '">'
-    htmlToCreate += '<h2>'+teddy.name + '</h2>'
-    htmlToCreate += '<p>'+teddy.description + '</p>'
-    htmlToCreate += teddy.price + '€'
-    htmlToCreate += '</div>'
+// annulation du comportement par défaut lors di clic sur "Envoyer"
+const envoi = document.querySelector("input[value='Envoyer']");
+envoi.addEventListener('click', function(event){
+    event.preventDefault();
+    const saisie = document.getElementById('firstName');
+    send(saisie.name);
+    return(saisie.name);
+});
 
-    let teddyChoseDisplayerElement = document.getElementById('teddyCart');
 
-    teddyChoseDisplayerElement.innerHTML = htmlToCreate;
-}
-*/
-// envoi des données du formulaire
 
-window.addEventListener("load", function () {
+
+
+
+
+
+
+
+
+/*// envoi des données du formulaire
+
+document.getElementById('form').addEventListener("submit",  (e)=> {
+    e.preventDefault();
+    console.log(document.getElementById('form'));
     function sendData() {
       var XHR = new XMLHttpRequest();
   
@@ -90,7 +75,7 @@ window.addEventListener("load", function () {
       var FD = new FormData(form);
   
       // Définissez ce qui se passe si la soumission s'est opérée avec succès
-      XHR.addEventListener("load", function(event) {
+      XHR.addEventListener("submit", function(event) {
         alert(event.target.responseText);
       });
   
@@ -115,4 +100,4 @@ window.addEventListener("load", function () {
   
       sendData();
     });
-  });
+  });*/
