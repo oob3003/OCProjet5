@@ -18,7 +18,7 @@
     <main>
         <h2>Récapitulatif du panier</h2>
     </main>
-    <section class="container">
+    <section id="container">
         
         <div id="teddyCart"></div>
 
@@ -35,32 +35,39 @@
                 <label for="firstName">Prénom</label>
 				<input name="firstName" id="firstName" data-displayname="Prenom" class="form-control" required 
                 aria-required="true" type="text">
+                <div id="firstName-error"></div>
             </div>
+            
             <div class="form__field">
                 <label for="lastName">Nom</label>
 				<input name="lastName" id="lastName" data-displayname="Nom" class="form-control" required 
                 aria-required="true" type="text">
+                <div id="lastName-error"></div>
             </div>
             <div class="form__field">
                 <label for="address">Adresse postale</label>
-                <input name="address" id="adress" data-displayname="Adresse" class="form-control" required  aria-required="true" type="text">
+                <input name="address" id="address" data-displayname="Adresse" class="form-control" required  aria-required="true" type="text">
+                <div id="address-error"></div>
             </div>
             <div class="form__field">
                 <label for="city">Ville</label>
                 <input name="city" id="city" data-displayname="Ville" class="form-control" required  aria-required="true" type="text">
+                <div id="city-error"></div>
             </div>
             <div class="form__field">
                 <label for="ZIPCode">Code postal</label>
-                <input name="ZIP" id="ZIP" data-displayname="ZIP" class="form-control" required  aria-required="true" type="text">
+                <input name="ZIP" id="ZIP" data-displayname="ZIP" class="form-control" required pattern="[0-9]{5}"  aria-required="true" type="text">
             </div>
             <div class="form__field">
                 <label for="email">Adresse email</label>
                 <input name="email" id="email" data-displayname="Adresse email" class="form-control" required  aria-required="true" type="email">
+                <div id="email-error"></div>
             </div>
             <div class="form__field">
                 <label for="msg">Message</label>
                 <textarea name="msg" id="msg" cols="30" rows="10"></textarea>
             </div>
+            
             <input type="submit" value="Envoyer">
         </form>
 

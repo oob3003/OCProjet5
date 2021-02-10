@@ -22,7 +22,7 @@ function parseTeddies(teddies) {
     htmlToCreate += '<img class="img-fluid" src="'+teddy.imageUrl + '">'
     htmlToCreate += '<h2>'+teddy.name + '</h2>'
     htmlToCreate += '<p>'+teddy.description + '</p>'
-    htmlToCreate += teddy.price + '€'
+    htmlToCreate += displayPrice(teddy.price)
     htmlToCreate += '</div>'
     htmlToCreate += '<a href= "./page2.html?id='+teddy._id+'">voir le produit</a>'
   }
