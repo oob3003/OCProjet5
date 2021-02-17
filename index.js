@@ -1,18 +1,6 @@
-/*
-let url ="http://localhost:3000/api/teddies";
+window.onload = getTeddies()
 
-fetch(url)
-  .then(function(response) {
-    response.json()
-    .then(function(data){
-      parseTeddies(data)
-    })
-  })
-.catch(error => alert("Erreur : " + error));
-*/
-getTeddies(parseTeddies)
-
-function parseTeddies(teddies) {
+function displayTeddies(teddies) {
   let teddyDisplayerElement = document.getElementById('teddyDisplayer')
   let htmlToCreate = ''
 

@@ -2,8 +2,9 @@ let total = 0;
 
 let teddyCart = getCart();
 
-getTeddies(displayCart) 
-function displayCart(teddies){
+window.onload = getTeddies() 
+
+function displayTeddies(teddies){
     let htmlToCreate = '';
     
     for(let index = 0; index < teddyCart.length; index++) {
@@ -40,21 +41,25 @@ function sendForm () {
 
   let order = { 
     "contact": {
-      "firstName": "",
-      "lastName": "",
-      "address": "",
-      "city": "",
-      "email": ""
+      "firstName": document.getElementById('firstName').value,
+      "lastName": document.getElementById('lastName').value,
+      "address": document.getElementById('address').value,
+      "city": document.getElementById('city').value,
+      "email": document.getElementById('email').value,
     },
     "products": product_ids
   }
+
+  sendOrder(order) 
+
+
   let requestForm = new XMLHttpRequest()
     requestForm.onreadystatechange = function () {
       console.log(this.status)
       if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
         //console.log(this.responseText);
         var response = JSON.parse (this.responseText);
-        //console.log(response);
+        console.log(response);
         document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>'
       }
     };
@@ -75,8 +80,9 @@ myForm.addEventListener('submit', function(e) {
   success = verifAlphaNumTiret('lastName') && success
   success = verifAlphaNumTiret('city') && success
   success = verifyAddress('address') && success
+  success = verifyZIP('ZIP') && success
   success = verifyEmail('email') && success
-
+  
   e.preventDefault();
 
   if (success) {

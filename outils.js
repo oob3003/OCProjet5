@@ -1,3 +1,46 @@
+let url ="http://localhost:3000/api/teddies/";
+
+function getTeddies() { 
+    fetch(url)
+    .then(function(response) {
+        response.json()
+        .then(function(data){
+            displayTeddies(data)
+        })
+    })
+    .catch(error => alert("Erreur : " + error));
+};
+
+function getTeddy(_id) {
+    fetch(url+_id)
+    .then(function(response) {
+        response.json()
+        .then(function(teddy) {
+            displayTeddy(teddy)
+        })
+    })
+.catch(error => alert("Erreur : " + error));
+}
+
+function sendOrder(order) {
+    const option = {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: {
+            "Content-Type":"application/json"
+        }
+    }
+    fetch(url+"order",option)
+    .then(response => response.json())
+    .then(response => {
+        document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>';
+        localStorage.removeItem("teddyCart"); 
+    })
+    .catch(error => alert("Erreur : " + error));
+}
+
+
+
 function getCart() {
     let teddyCartString = localStorage.getItem('teddyCart')
     let teddyCart 
@@ -9,18 +52,6 @@ function getCart() {
     return teddyCart
 };
 
-function getTeddies(callback) {
-    let url ="http://localhost:3000/api/teddies";
-
-    fetch(url)
-    .then(function(response) {
-        response.json()
-        .then(function(data){
-            callback(data)
-        })
-    })
-    .catch(error => alert("Erreur : " + error));
-}
 // parcourir la liste des teddies pour trouver le teddy dont l'_id a été choisi
 function getTeddyById(listeTeddies, id){
     for(let index=0; index < listeTeddies.length; index++){
@@ -31,7 +62,7 @@ function getTeddyById(listeTeddies, id){
     return null
 }
 
-// creer une fonction pour afficher les prix a deux decimales
+// fonction pour afficher les prix a deux decimales
 function displayPrice (teddyPrice) {
     return String(parseFloat(teddyPrice/100).toFixed(2)) + '&nbsp;€'; 
 }
@@ -39,11 +70,15 @@ function displayPrice (teddyPrice) {
 // vérif formulaire
 
 function verifAlphaNumTiret(fieldId) {
-    return verif(fieldId, /^[a-zA-Z-\s]+$/, "le champ doit comporter uniquement des lettres et tiret(s)")
+    return verif(fieldId, /^[a-zA-Z]+([-'\s][a-zA-Z]+[-'\s][a-zA-Z]+)?$/, "le champ doit comporter uniquement des lettres sans accent et un éventuellement un ou des tirets")
 }
 
 function verifyAddress (fieldId) {
     return verif(fieldId, /^[0-9a-zA-Z-\s]+$/, "le champ doit comporter uniquement des chiffres, lettres et tirets")
+}
+
+function verifyZIP (fieldId) {
+    return verif(fieldId, /^[0-9]{5}$/, "le champ doit comporter cinq chiffres")
 }
 
 function verifyEmail (fieldId) {
@@ -71,8 +106,8 @@ function verifyEmail (fieldId) {
 function verif(fieldId, myRegEx, message) {
     let myInput = document.getElementById(fieldId);
     let myError = document.getElementById(fieldId + '-error');
-
-    if (myInput.value.trim() == "") {
+    myInput.value = myInput.value.trim();
+    if (myInput.value == "") {
         myError.innerHTML = "le champ est requis";
         return false;
     } else if (myRegEx.test(myInput.value) == false) {

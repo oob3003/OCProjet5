@@ -1,17 +1,8 @@
-let baseUrl ="http://localhost:3000/api/teddies/";
-
 let teddyChoisi = window.location.search;
 let urlParams = new URLSearchParams(teddyChoisi)
 teddyChoisi = urlParams.get('id');
+window.onload = getTeddy(teddyChoisi);
 //teddyChoisi = teddyChoisi.replace ('?id=','/'); plus nécessaire.
-fetch(baseUrl+teddyChoisi)
-    .then(function(response) {
-        response.json()
-        .then(function(teddy) {
-            displayTeddy(teddy)
-        })
-    })
-.catch(error => alert("Erreur : " + error));
 
 function displayTeddy(teddy){
     let htmlToCreate = '';
@@ -25,7 +16,7 @@ function displayTeddy(teddy){
     htmlToCreate += '<div>Couleurs disponibles :'
     let colors = teddy.colors
     for (let i = 0; i < colors.length; i++) {
-      htmlToCreate += '<a href> <div class="echantillon" style="background-color:' + colors[i] + '"></div></a>'
+      htmlToCreate += '<div class="echantillon" style="background-color:' + colors[i] + '"></div>'
     }
     htmlToCreate += '</div>'
 
