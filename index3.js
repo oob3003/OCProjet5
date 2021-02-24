@@ -60,7 +60,7 @@ function sendForm () {
         //console.log(this.responseText);
         var response = JSON.parse (this.responseText);
         console.log(response);
-        document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>'
+        document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>' + '<div> Prix total : ' + displayPrice(total); '</div>'
       }
     };
   requestForm.open("POST", "http://localhost:3000/api/teddies/order");
