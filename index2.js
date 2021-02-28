@@ -43,6 +43,7 @@ function addTeddyToCart() {
     localStorage.getItem('teddyCart')
     window.location.assign('page3.html')
 }
+//test addTeddyToCart
 /*localStorage.getItem('teddyCart')
 console.log(localStorage.getItem('teddyCart'))
 console.log(JSON.parse(localStorage.getItem('teddyCart')))*/

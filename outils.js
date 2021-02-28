@@ -11,6 +11,11 @@ function getTeddies() {
     .catch(error => alert("Erreur : " + error));
 };
 
+// fonction pour afficher les prix a deux decimales
+function displayPrice (teddyPrice) {
+    return String(parseFloat(teddyPrice/100).toFixed(2)) + '&nbsp;€'; 
+};
+
 function getTeddy(_id) {
     fetch(url+_id)
     .then(function(response) {
@@ -20,27 +25,9 @@ function getTeddy(_id) {
         })
     })
 .catch(error => alert("Erreur : " + error));
-}
+};
 
-function sendOrder(order) {
-    const option = {
-        method: "POST",
-        body: JSON.stringify(order),
-        headers: {
-            "Content-Type":"application/json"
-        }
-    }
-    fetch(url+"order",option)
-    .then(response => response.json())
-    .then(response => {
-        document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>';
-        localStorage.removeItem("teddyCart"); 
-    })
-    .catch(error => alert("Erreur : " + error));
-}
-
-
-
+// création du panier
 function getCart() {
     let teddyCartString = localStorage.getItem('teddyCart')
     let teddyCart 
@@ -60,11 +47,6 @@ function getTeddyById(listeTeddies, id){
         }
     }
     return null
-}
-
-// fonction pour afficher les prix a deux decimales
-function displayPrice (teddyPrice) {
-    return String(parseFloat(teddyPrice/100).toFixed(2)) + '&nbsp;€'; 
 }
 
 // vérif formulaire
@@ -117,4 +99,22 @@ function verif(fieldId, myRegEx, message) {
         myError.innerHTML = "";
         return true;
     }
+};
+
+// Envoi du panier au serveur pour obtenir la confirmation de commande
+function sendOrder(order) {
+    const option = {
+        method: "POST",
+        body: JSON.stringify(order),
+        headers: {
+            "Content-Type":"application/json"
+        }
+    }
+    fetch(url+"order",option)
+    .then(response => response.json())
+    .then(response => {
+        document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>';
+        localStorage.removeItem("teddyCart"); 
+    })
+    .catch(error => alert("Erreur : " + error));
 }

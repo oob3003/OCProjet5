@@ -29,47 +29,6 @@ function displayTeddies(teddies){
 
 }
 
-// création de la fonction qui récupère la saisie des champs du formulaire et les envoie au serveur
-
-function sendForm () {
-
-  let product_ids = [] 
-  for (let index = 0; index < teddyCart.length; index++) {
-    let id = teddyCart[index]
-    product_ids.push(id)
-  }
-
-  let order = { 
-    "contact": {
-      "firstName": document.getElementById('firstName').value,
-      "lastName": document.getElementById('lastName').value,
-      "address": document.getElementById('address').value,
-      "city": document.getElementById('city').value,
-      "email": document.getElementById('email').value,
-    },
-    "products": product_ids
-  }
-
-  sendOrder(order) 
-
-
-  let requestForm = new XMLHttpRequest()
-    requestForm.onreadystatechange = function () {
-      console.log(this.status)
-      if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
-        //console.log(this.responseText);
-        var response = JSON.parse (this.responseText);
-        console.log(response);
-        document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>' + '<div> Prix total : ' + displayPrice(total); '</div>'
-      }
-    };
-  requestForm.open("POST", "http://localhost:3000/api/teddies/order");
-  requestForm.setRequestHeader("Content-Type", "application/json");
-  //console.log(order);
-  requestForm.send(JSON.stringify(order));
-};
-
-
 let myForm = document.getElementById('form');
 myForm.addEventListener('submit', function(e) {
   //validation JS des champs du formulaire
@@ -89,3 +48,45 @@ myForm.addEventListener('submit', function(e) {
     sendForm();
   } 
 });
+
+// création de la fonction qui récupère la saisie des champs du formulaire et les envoie au serveur
+
+function sendForm () {
+
+  let product_ids = [] 
+  for (let index = 0; index < teddyCart.length; index++) {
+    let id = teddyCart[index]
+    product_ids.push(id)
+  }
+  //crétion de l'objet de contact
+  let order = { 
+    "contact": {
+      "firstName": document.getElementById('firstName').value,
+      "lastName": document.getElementById('lastName').value,
+      "address": document.getElementById('address').value,
+      "city": document.getElementById('city').value,
+      "email": document.getElementById('email').value,
+    },
+    "products": product_ids
+  }
+
+  sendOrder(order) 
+
+  let requestForm = new XMLHttpRequest()
+    requestForm.onreadystatechange = function () {
+      console.log(this.status)
+      if (this.readyState == XMLHttpRequest.DONE && this.status == 201) {
+        console.log(this.responseText);//console.log pour vérifier le contenu de la réponse du serveur
+        var response = JSON.parse (this.responseText);
+        //console.log(response);
+        document.getElementById('container').innerHTML = '<div> Merci pour votre commande numéro : ' + response.orderId + '</div>' + '<div> Prix total : ' + displayPrice(total); '</div>'
+      }
+    };
+  requestForm.open("POST", "http://localhost:3000/api/teddies/order");
+  requestForm.setRequestHeader("Content-Type", "application/json");
+  console.log(order); //console.log pour vérifier l'objet envoyer au serveur
+  requestForm.send(JSON.stringify(order));
+};
+
+
+

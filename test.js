@@ -76,11 +76,11 @@ testGetTeddyByIdFail()
 // fonction pour afficher les prix a deux decimales
 
 function testDisplayPriceSuccess() {
-    console.log("je teste avec un prix sans décimale: 2500")
-    let expectedPriceResult = "25.00&nbsp;€"
+    console.log("je teste avec un prix sans décimale: 9876")
+    let expectedPriceResult = "98.76&nbsp;€"
     
     
-    let resultPrice = displayPrice(2500)
+    let resultPrice = displayPrice(9876)
     if (resultPrice === expectedPriceResult) {
         console.log("success")
     } else {
