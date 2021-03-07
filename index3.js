@@ -1,6 +1,9 @@
 let total = 0;
 
 let teddyCart = getCart();
+  if (teddyCart.length<1) {
+    document.getElementById('form').innerHTML = 'Le panier est vide'
+  }
 
 window.onload = getTeddies() 
 
