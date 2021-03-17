@@ -18,7 +18,7 @@ function displayTeddies(teddies){
         if (teddy == null) {
             htmlToCreate += '<div>Non disponible</div>'    
         } else {
-            htmlToCreate += '<div>'+ teddy.name + '<img class="img-fluid" src="'+teddy.imageUrl + '">' + displayPrice(teddy.price) + '</div>'
+            htmlToCreate += '<div class="card-title">' + teddy.name + '&nbsp;' + '<img class="card-img-top" src="' + teddy.imageUrl + '">' + displayPrice(teddy.price) + '</div>'
             total += teddy.price
         }
 

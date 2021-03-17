@@ -52,15 +52,15 @@ function getTeddyById(listeTeddies, id){
 // vérif formulaire
 
 function verifAlphaNumTiret(fieldId) {
-    return verif(fieldId, /^[a-zA-Z]+([-'\s][a-zA-Z]+[-'\s][a-zA-Z]+)?$/, "le champ doit comporter uniquement des lettres sans accent et un éventuellement un ou des tirets")
+    return verif(fieldId, /^[a-zA-Z]+([-'\s][a-zA-Z]+[-'\s][a-zA-Z]+)?$/, "le champ ci-dessus doit comporter uniquement des lettres sans accent et un éventuellement un ou des tirets")
 }
 
 function verifyAddress (fieldId) {
-    return verif(fieldId, /^[0-9a-zA-Z-\s]+$/, "le champ doit comporter uniquement des chiffres, lettres et tirets")
+    return verif(fieldId, /^[0-9a-zA-Z-\s]+$/, "le champ ci-dessus doit comporter uniquement des chiffres, lettres et tirets")
 }
 
 function verifyZIP (fieldId) {
-    return verif(fieldId, /^[0-9]{5}$/, "le champ doit comporter cinq chiffres")
+    return verif(fieldId, /^[0-9]{5}$/, "le champ ci-dessus doit comporter cinq chiffres")
 }
 
 function verifyEmail (fieldId) {
